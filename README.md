@@ -1,6 +1,9 @@
 # Educational Heap Exploitation
 
 This repo is for learning various heap exploitation techniques.
+We use Ubuntu's Libc releases as the gold-standard. Each technique is verified to work on corresponding Ubuntu releases.
+You can run `apt source libc6` to download the source code of the Libc your are using on Debian-based operating system.
+
 We came up with the idea during a hack meeting, and have implemented the following techniques:
 
 | File | Technique | Glibc-Version | Patch | Applicable CTF Challenges |
@@ -30,6 +33,7 @@ We came up with the idea during a hack meeting, and have implemented the followi
 | [house_of_botcake.c](glibc_2.31/house_of_botcake.c) | Bypass double free restriction on tcache. Make `tcache_dup` great again. | > 2.25 | | |
 | [tcache_stashing_unlink_attack.c](glibc_2.31/tcache_stashing_unlink_attack.c) | Exploiting the overwrite of a freed chunk on small bin freelist to trick malloc into returning an arbitrary pointer and write a large value into arbitraty address with the help of calloc. | > 2.25 | | [Hitcon 2019 one punch man](https://github.com/xmzyshypnc/xz_files/tree/master/hitcon2019_one_punch_man) | 
 | [fastbin_reverse_into_tcache.c](glibc_2.31/fastbin_reverse_into_tcache.c) | Exploiting the overwrite of a freed chunk in the fastbin to write a large value into an arbitrary address. | > 2.25 | | |
+| [house_of_mind_fastbin.c](glibc_2.23/house_of_mind_fastbin.c) | Exploiting a single byte overwrite with arena handling to write a large value (heap pointer) to an arbitrary address | latest | | |
 
 The GnuLibc is under constant development and several of the techniques above have let to consistency checks introduced in the malloc/free logic.
 Consequently, these checks regularly break some of the techniques and require adjustments to bypass them (if possible).
